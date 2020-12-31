@@ -1,3 +1,4 @@
+certbot certonly --standalone -d example.com
 export from_path="/etc/letsencrypt/live/example.com"
 export to_path="/home/centos/docker_compose/nginx/certs"
 
