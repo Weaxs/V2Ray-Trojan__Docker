@@ -1,0 +1,34 @@
+services: 
+    nginx: 
+        image: nginx:latest
+        restart: always
+        # ports: 
+        #    - "80:80"
+        #    - "443:443"
+        volumes: 
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./nginx/certs:/etc/nginx/certs
+        network_mode: host
+        container_name: nginx
+
+    v2ray_vless: 
+        restart: always
+        depends_on:
+            - nginx
+        image: v2fly/v2fly-core
+        volumes: 
+            - ./v2fly_vless/config.json:/etc/v2ray/config.json
+            - ./nginx/certs:/etc/v2ray/certs
+        network_mode: host
+        container_name: v2ray_vless
+
+    v2ray_vmess:
+        restart: always
+        depends_on:
+            - nginx
+        image: v2fly/v2fly-core
+        volumes:
+            - ./v2fly_vmess/config.json:/etc/v2ray/config.json
+            - ./nginx/certs:/etc/v2ray/certs
+        network_mode: host
+        container_name: v2ray_vmess
