@@ -7,8 +7,9 @@ services:
         #    - "80:80"
         #    - "443:443"
         volumes: 
-            - ./nginx/conf.d:/etc/nginx/conf.d
-            - ./nginx/certs:/etc/nginx/certs
+            - "./nginx/conf.d:/etc/nginx/conf.d"
+            - "./nginx/certs:/etc/nginx/certs"
+            - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
         network_mode: host
         container_name: nginx
 
@@ -18,8 +19,8 @@ services:
             - nginx
         image: v2fly/v2fly-core
         volumes: 
-            - ./v2fly_vless/config.json:/etc/v2ray/config.json
-            - ./nginx/certs:/etc/v2ray/certs
+            - "./v2fly_vless/config.json:/etc/v2ray/config.json"
+            - "./nginx/certs:/etc/v2ray/certs"
         network_mode: host
         container_name: v2ray_vless
 
@@ -29,7 +30,31 @@ services:
             - nginx
         image: v2fly/v2fly-core
         volumes:
-            - ./v2fly_vmess/config.json:/etc/v2ray/config.json
-            - ./nginx/certs:/etc/v2ray/certs
+            - "./v2fly_vmess/config.json:/etc/v2ray/config.json"
+            - "./nginx/certs:/etc/v2ray/certs"
         network_mode: host
         container_name: v2ray_vmess
+
+    shadowsocks:
+        image: shadowsocks/shadowsocks-libev
+        ports:
+            - "8388:8388"
+        environment:
+            METHOD: ${SS_METHOD}
+            PASSWORD: ${SS_PASSWORD}
+        restart: always
+        network_mode: host
+        container_name: shadowsocks
+
+    trojan:
+        image: trojangfw/trojan
+        restart: always
+        network_mode: host
+        volumes:
+            - "./nginx/certs:/cert/"
+            - "./trojan/config.json:/config/config.json"
+        depends_on:
+            - nginx
+        command:
+            /usr/local/bin/trojan -c /config/config.json
+        container_name: trojan
