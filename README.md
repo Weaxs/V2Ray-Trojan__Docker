@@ -22,6 +22,7 @@ after then, start docker-compose
     docker-compose up -d
 
 The proxy services run as follows
+
 ![img.png](img.png)
 
 
