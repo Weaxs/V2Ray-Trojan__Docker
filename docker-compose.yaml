@@ -47,14 +47,12 @@ services:
         container_name: shadowsocks
 
     trojan:
-        image: trojangfw/trojan
+        image: teddysun/trojan-go
         restart: always
         network_mode: host
         volumes:
             - "./nginx/certs:/cert/"
-            - "./trojan/config.json:/config/config.json"
+            - "./trojan/config.json:/etc/trojan-go/config.json"
         depends_on:
             - nginx
-        command:
-            /usr/local/bin/trojan -c /config/config.json
         container_name: trojan
