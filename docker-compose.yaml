@@ -47,7 +47,7 @@ services:
         container_name: shadowsocks
 
     trojan:
-        image: teddysun/trojan-go
+        image: p4gefau1t/trojan-go
         restart: always
         network_mode: host
         volumes:
