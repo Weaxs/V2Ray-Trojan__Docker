@@ -38,6 +38,11 @@
     "fast_open": false,
     "fast_open_qlen": 20
   },
+  "websocket": {
+        "enabled": true,
+        "path": "/trojan",
+        "host": "trojan.example.com"
+  },
   "mysql": {
     "enabled": false,
     "server_addr": "127.0.0.1",
