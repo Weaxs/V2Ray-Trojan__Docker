@@ -35,17 +35,6 @@ services:
         network_mode: host
         container_name: v2ray_vmess
 
-    shadowsocks:
-        image: shadowsocks/shadowsocks-libev
-        ports:
-            - "8388:8388"
-        environment:
-            METHOD: ${SS_METHOD}
-            PASSWORD: ${SS_PASSWORD}
-        restart: always
-        network_mode: host
-        container_name: shadowsocks
-
     trojan:
         image: p4gefau1t/trojan-go
         restart: always
