@@ -9,9 +9,9 @@
 1. 用于部署的服务器
 2. 已购买的域名，并将域名解析到对应的服务器，具体解析主域名还是子域名都可以
 3. 服务器环境
-   a. 安装Docker Compose，具体参考 [Install the Compose plugin](https://docs.docker.com/compose/install/linux/)
-   b. 安装CertBot，用于域名免费证书的申请，具体可以参考 [CertBot官网](https://certbot.eff.org/)
-   c. 安装Git，具体参考[Git Download](https://git-scm.com/downloads)
+   1. 安装Docker Compose，具体参考 [Install the Compose plugin](https://docs.docker.com/compose/install/linux/)
+   2. 安装CertBot，用于域名免费证书的申请，具体可以参考 [CertBot官网](https://certbot.eff.org/)
+   3. 安装Git，具体参考[Git Download](https://git-scm.com/downloads)
 
 ## 步骤
 
