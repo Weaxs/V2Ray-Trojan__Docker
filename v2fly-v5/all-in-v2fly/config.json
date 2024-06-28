@@ -1,58 +1,45 @@
 {
   "log": {
-    "loglevel": "warning"
-  },
-  "routing": {
-    "domainStrategy": "AsIs",
-    "rules": [
-      {
-        "type": "field",
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "block"
-      }
-    ]
+    "access": {
+      "type": "File",
+      "path": "/tmp/v2ray/access.log",
+      "level": "Info"
+    },
+    "error": {
+      "type": "File",
+      "path": "/tmp/v2ray/_error.log",
+      "level": "Info"
+    }
   },
   "inbounds": [
     {
+      "protocol": "shadowsocks",
       "port": 11000,
-      "listen": "127.0.0.1",
-      "protocol": "vless",
       "settings": {
-        "clients": [
-          {
-            "id": "",
-            "level": 0,
-            "email": "love@v2fly.org"
-          }
-        ],
-        "decryption": "none"
+        "method": "chacha20-ietf-poly1305",
+        "password": "your password",
+        "networks": "tcp,udp"
       },
       "streamSettings": {
-        "network": "ws",
+        "transport": "ws",
         "security": "none",
-        "wsSettings": {
-          "path": "/v2ray/vless"
+        "transportSettings": {
+          "path": "/vmess"
         }
+
       }
     },
     {
-      "listen": "127.0.0.1",
       "port": 12000,
       "protocol": "vmess",
       "settings": {
-        "clients": [
-          {
-            "id": ""
-          }
-        ]
+        "users": [ "your user id" ]
       },
       "streamSettings": {
-        "network": "ws",
+        "transport": "ws",
         "security": "none",
-        "wsSettings": {
-          "path": "/v2ray/vmess"
+        "transportSettings": {
+          "path": "/vmess"
         }
 
       }
@@ -61,27 +48,13 @@
       "port": 8080,
       "protocol": "trojan",
       "settings": {
-        "clients": [
-          {
-            "password":"your password",
-            "email": "love@v2fly.org"
-          }
-        ]
+        "users": [ "your password"]
       },
       "streamSettings": {
-        "network": "tcp",
-        "security": "tls",
-        "tlsSettings": {
-          "alpn": [
-            "http/1.1",
-            "http/2"
-          ],
-          "certificates": [
-            {
-              "certificateFile": "/cert/fullchain.pem",
-              "keyFile": "/cert/privkey.pem"
-            }
-          ]
+        "transport": "ws",
+        "security": "none",
+        "transportSettings": {
+          "path": "/trojan"
         }
       }
     }
