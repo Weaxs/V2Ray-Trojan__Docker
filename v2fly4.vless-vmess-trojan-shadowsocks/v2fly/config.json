@@ -1,0 +1,113 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "block"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 11000,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "your user id",
+                        "level": 0,
+                        "email": "love@v2fly.org"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "path": "/vless"
+                }
+            }
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": 12000,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "your user id"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "path": "/vmess"
+                }
+
+            }
+        },
+        {
+            "port": 13000,
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password":"your password",
+                        "email": "love@v2fly.org"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "wsSettings": {
+                    "path": "/trojan"
+                },
+                "tlsSettings": {
+                    "alpn": [
+                        "http/1.1", "h2"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/cert/fullchain.crt",
+                            "keyFile": "/cert/private.key"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "port": 14000,
+            "protocol": "shadowsocks",
+            "settings": {
+                "method": "chacha20-ietf-poly1305",
+                "password": "your password"
+            },
+            "streamSettings": {
+                "network": "ws",
+                "path": "/shadowsocks"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ]
+}

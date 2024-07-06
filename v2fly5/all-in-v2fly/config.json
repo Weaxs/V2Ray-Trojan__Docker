@@ -22,9 +22,18 @@
       },
       "streamSettings": {
         "transport": "ws",
-        "security": "none",
+        "security": "tls",
         "transportSettings": {
           "path": "/vmess"
+        },
+        "tlsSettings": {
+          "disableSystemRoot": true,
+          "certificates": [
+            {
+              "certificateFile": "/cert/fullchain.pem",
+              "keyFile": "/cert/privkey.pem"
+            }
+          ]
         }
 
       }
@@ -52,9 +61,18 @@
       },
       "streamSettings": {
         "transport": "ws",
-        "security": "none",
+        "security": "tls",
         "transportSettings": {
           "path": "/trojan"
+        },
+        "tlsSettings": {
+          "disableSystemRoot": true,
+          "certificates": [
+            {
+              "certificateFile": "/cert/fullchain.crt",
+              "keyFile": "/cert/privkey.pem"
+            }
+          ]
         }
       }
     }
