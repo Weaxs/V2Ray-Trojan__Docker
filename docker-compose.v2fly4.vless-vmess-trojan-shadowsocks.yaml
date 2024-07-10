@@ -7,9 +7,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - "./v2fly4.vless-vmess-trojan/nginx/conf.d:/etc/nginx/conf.d"
-      - "./v2fly4.vless-vmess-trojan/nginx/certs:/etc/nginx/certs"
-      - "./v2fly4.vless-vmess-trojan/nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./v2fly4.vless-vmess-trojan-shadowsocks/nginx/conf.d:/etc/nginx/conf.d"
+      - "./v2fly4.vless-vmess-trojan-shadowsocks/nginx/certs:/etc/nginx/certs"
+      - "./v2fly4.vless-vmess-trojan-shadowsocks/nginx/nginx.conf:/etc/nginx/nginx.conf"
     container_name: nginx
 
   v2fly:
@@ -18,7 +18,6 @@ services:
       - nginx
     image: v2fly/v2fly-core:v4.45.2
     volumes:
-      - "./v2fly4.vless-vmess-trojan/v2fly/config.json:/etc/v2ray/config.json"
-      - "./v2fly4.vless-vmess-trojan/nginx/certs:/cert/"
-    entrypoint: ["v2ray", "run"]
+      - "./v2fly4.vless-vmess-trojan-shadowsocks/v2fly/config.json:/etc/v2ray/config.json"
+      - "./v2fly4.vless-vmess-trojan-shadowsocks/nginx/certs:/cert/"
     container_name: v2fly
