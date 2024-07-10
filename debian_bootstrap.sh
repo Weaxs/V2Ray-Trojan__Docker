@@ -5,15 +5,20 @@ function purple() {
 }
 
 function downloadDependencies() {
-  purple "下载相关依赖..."
-  ./debian_initialize.sh
-  if [ $? -eq 0 ]; then
-    purple "下载依赖完成"
+  read -r -p "\033[0;35m是否需要下载相关依赖? (y/N): \033[0m" confirm
+  if [[ $confirm =~ ^[Yy]$ ]]; then
+    purple "下载相关依赖..."
+    bash debian_initialize.sh
+    if [ $? -eq 0 ]; then
+      purple "下载依赖完成"
+    else
+      purple "下载依赖失败"
+      exit 1
+    fi
   else
-    purple "下载依赖失败"
-    exit 1
+    purple "跳过依赖下载"
   fi
-  purple "下载依赖完成"
+
 }
 
 function setDomain() {
@@ -31,7 +36,7 @@ function setDomain() {
         fi
   done
   purple "申请证书"
-  ./cert.sh
+  bash cert.sh
   if [ $? -eq 0 ]; then
     purple "证书申请成功"
   else
