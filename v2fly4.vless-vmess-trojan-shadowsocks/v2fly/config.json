@@ -81,7 +81,7 @@
                     "certificates": [
                         {
                             "certificateFile": "/cert/fullchain.crt",
-                            "keyFile": "/cert/private.key"
+                            "keyFile": "/cert/privkey.key"
                         }
                     ]
                 }
