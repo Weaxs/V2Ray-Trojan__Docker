@@ -6,7 +6,7 @@ function purple() {
 
 function downloadDependencies() {
   read -r -p "是否需要下载相关依赖? (y/N):" confirm
-  if [[ $confirm =~ ^[Nn]$ ]]; then
+  if [[ $confirm =~ ^[Yy]$ ]]; then
     purple "下载相关依赖..."
     bash debian_initialize.sh
     if [ $? -eq 0 ]; then
