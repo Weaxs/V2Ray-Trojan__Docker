@@ -7,6 +7,6 @@ certbot certonly --standalone -d trojan.example.com -d vmess.example.com -d shad
 from_path="/etc/letsencrypt/live/trojan.example.com"
 cp "$from_path"/fullchain.pem "$from_path"/fullchain.crt
 
-cp -r "$from_path" "$curr_dir"/v2fly4.vless-vmess-trojan/nginx/certs
-cp -r "$from_path" "$curr_dir"/v2fly4.vless-vmess-trojan-shadowsocks/nginx/certs
-cp -r "$from_path" "$curr_dir"/v2fly5.vmess-trojan-shadowsocks/nginx/certs
+cp -PR "$from_path" "$curr_dir"/v2fly4.vless-vmess-trojan/nginx/certs
+cp -PR "$from_path" "$curr_dir"/v2fly4.vless-vmess-trojan-shadowsocks/nginx/certs
+cp -PR "$from_path" "$curr_dir"/v2fly5.vmess-trojan-shadowsocks/nginx/certs
