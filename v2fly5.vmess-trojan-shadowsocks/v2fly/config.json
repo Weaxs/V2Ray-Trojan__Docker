@@ -17,7 +17,7 @@
   "inbounds": [
     {
       "port": 11000,
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -38,7 +38,7 @@
       }
     },
     {
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "port": 12000,
       "protocol": "vmess",
       "settings": {
@@ -58,7 +58,7 @@
     },
     {
       "port": 13000,
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "protocol": "trojan",
       "settings": {
         "clients": [
@@ -78,7 +78,7 @@
     },
     {
       "port": 14000,
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",

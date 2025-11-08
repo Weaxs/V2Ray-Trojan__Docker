@@ -20,5 +20,5 @@ services:
     volumes:
       - "./v2fly5.vmess-trojan-shadowsocks/v2fly/config.json:/etc/v2ray/config.json"
       - "./v2fly5.vmess-trojan-shadowsocks/nginx/certs:/cert/"
-    entrypoint: ["v2ray", "run"]
+    command: ["run", "-c", "/etc/v2ray/config.json"]
     container_name: v2fly
