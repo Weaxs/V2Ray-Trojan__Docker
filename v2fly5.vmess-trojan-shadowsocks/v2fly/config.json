@@ -1,85 +1,106 @@
 {
   "log": {
-    "access": {
-      "type": "File",
-      "path": "/tmp/v2ray/access.log",
-      "level": "Info"
-    },
-    "error": {
-      "type": "File",
-      "path": "/tmp/v2ray/_error.log",
-      "level": "Info"
-    }
+    "loglevel": "warning"
+  },
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "block"
+      }
+    ]
   },
   "inbounds": [
     {
-      "protocol": "shadowsocks",
       "port": 11000,
+      "listen": "127.0.0.1",
+      "protocol": "vless",
       "settings": {
-        "method": "chacha20-ietf-poly1305",
-        "password": "your password",
-        "networks": "tcp,udp"
+        "clients": [
+          {
+            "id": "your user id",
+            "level": 0,
+            "email": "love@v2fly.org"
+          }
+        ],
+        "decryption": "none"
       },
       "streamSettings": {
-        "transport": "ws",
-        "security": "tls",
-        "transportSettings": {
-          "path": "/vmess"
-        },
-        "tlsSettings": {
-          "disableSystemRoot": true,
-          "certificates": [
-            {
-              "certificateFile": "/cert/fullchain.pem",
-              "keyFile": "/cert/privkey.pem"
-            }
-          ]
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/vless"
         }
-
       }
     },
     {
+      "listen": "127.0.0.1",
       "port": 12000,
       "protocol": "vmess",
       "settings": {
-        "users": [ "your user id" ]
+        "clients": [
+          {
+            "id": "your user id"
+          }
+        ]
       },
       "streamSettings": {
-        "transport": "ws",
+        "network": "ws",
         "security": "none",
-        "transportSettings": {
+        "wsSettings": {
           "path": "/vmess"
         }
-
       }
     },
     {
-      "port": 8080,
+      "port": 13000,
+      "listen": "127.0.0.1",
       "protocol": "trojan",
       "settings": {
-        "users": [ "your password"]
+        "clients": [
+          {
+            "password": "your password",
+            "email": "love@v2fly.org"
+          }
+        ]
       },
       "streamSettings": {
-        "transport": "ws",
-        "security": "tls",
-        "transportSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
           "path": "/trojan"
-        },
-        "tlsSettings": {
-          "disableSystemRoot": true,
-          "certificates": [
-            {
-              "certificateFile": "/cert/fullchain.crt",
-              "keyFile": "/cert/privkey.pem"
-            }
-          ]
+        }
+      }
+    },
+    {
+      "port": 14000,
+      "listen": "127.0.0.1",
+      "protocol": "shadowsocks",
+      "settings": {
+        "method": "chacha20-ietf-poly1305",
+        "password": "your password"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/shadowsocks"
         }
       }
     }
   ],
   "outbounds": [
     {
-      "protocol": "freedom"
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "block"
     }
   ]
 }
